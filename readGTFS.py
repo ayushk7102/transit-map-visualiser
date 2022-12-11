@@ -1,6 +1,8 @@
 
 import pandas as pd
 import zipfile
+import pickle
+read_stoptimes = False
 
 class stop:
     """
@@ -120,12 +122,95 @@ def read_data(city_name):
         trips.append(trip(s['trip_id'], s['route_id']))
     print('Loaded trips.')
 
-    # stoptimes_df = pd.read_csv(city_name + '_gtfs/stop_times.txt')
-    # for ix, s in stoptimes_df.iterrows():
-    #     stoptimes.append(stop_time(s['trip_id'], s['stop_id'], s['arrival_time'], s['departure_time'], s['stop_sequence']))
-    # print('Loaded stoptimes.')
+    if read_stoptimes:
+        stoptimes_df = pd.read_csv(city_name + '_gtfs/stop_times.txt')
+        i=0
+        for ix, s in stoptimes_df.iterrows():
+            print('Reading ', i)
+            i+=1
+            stoptimes.append(stop_time(s['trip_id'], s['stop_id'], s['arrival_time'], s['departure_time'], s['stop_sequence']))
+        print('Loaded stoptimes.')
+        
+        with open(r"stoptimes_list.pickle", "wb") as output_file:
+            pickle.dump(stoptimes, output_file)
+
+
+    else:
+        stoptimes = []
+        with open(r"stoptimes_list.pickle", "rb") as input_file:
+            stoptimes = pickle.load(input_file)
+            print('Loaded stoptimes from cache.')
 
     return stops, routes, trips, stoptimes
 
 
 
+
+
+
+def get_unique_routes(src, dest, stops, routes, trips, stoptimes):
+
+    route_trips = {}        # dictionary with key: route-id, value is a list of trip-ids
+    trip_routes = {}        # dictionary with key: trip-id, value is a the mapped route-id
+
+    for t in trips:
+        if route_trips.get(t.route_id, 'nf') == 'nf':
+            route_trips[t.route_id] = [t.id]
+        else:
+            route_trips[t.route_id].append(t.id)
+
+        trip_routes[t.id] = t.route_id
+
+
+    trip_stops = {}         # dictionary with key: trip_id, value: (route_id, [stop1, stop2..])
+    nf = 'nf'
+    for s in stoptimes:
+
+        route_id = trip_routes[s.trip_id]
+
+        if trip_stops.get(s.trip_id,  nf) == nf:
+            trip_stops[s.trip_id] = route_stops(route_id, ([s.stop_id]))
+
+        else:
+            trip_stops[s.trip_id].stops.append(s.stop_id)
+
+
+    uniq_routes = set()     # a set to store unique routes    
+    
+    for k in trip_stops.keys():
+        stops_k = trip_stops[k]
+        stops_arr = trip_stops[k].stops
+        if src in stops_arr and dest in stops_arr: #both the source and destination are in the list of stops
+            if stops_arr.index(src) < stops_arr.index(dest): #the source comes before the destination
+                uniq_routes.add(stops_k.route_id)
+
+    # print(uniq_routes)
+
+    return uniq_routes
+
+def number_of_routes(source_stopid: str, destination_stopid: str) -> int:
+    """
+    Find the number of routes going from source stop id to destination stop id.
+
+    Args:
+        source_stopid (str): Source Stop Id
+        destination_stopid (str): Destination Stop Id
+
+    Returns:
+        final_count (int): Number of routes going from source to destination.
+    """
+
+    final_count = -1
+    try:
+        # Enter your code here
+        src = source_stopid
+        dest = destination_stopid
+
+        # stops, routes, trips, stoptimes = read_data()
+        uniq_routes = get_unique_routes(src, dest, stops, routes, trips, stoptimes)
+
+        final_count = len(uniq_routes)
+
+        return final_count
+    except:
+        return final_count
