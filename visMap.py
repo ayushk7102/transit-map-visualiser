@@ -4,13 +4,18 @@ from shapely.geometry import Point, Polygon
 from readGTFS import *
 stops, routes, trips, stoptimes = read_data('nyc')
 
-path_to_data = gpd.datasets.get_path("nybb")
-gdf = gpd.read_file(path_to_data)
-gdf["area"] = gdf.area
-gdf["centroid"] = gdf.centroid
+# path_to_data = gpd.datasets.get_path("naturalearth_lowres")
+# print(gpd.datasets.available)
+gdf = gpd.read_file('Borough Boundaries.geojson')
+print(gdf)
+
+# exit()
+# gdf["area"] = gdf.area
+# gdf["centroid"] = gdf.centroid
 # gdf.plot("area", legend=True)
-ax = gdf["geometry"].plot()
-gdf["centroid"].plot(ax=ax, color="black")
+# ax = gdf["geometry"].plot()
+ax=gdf.plot()
+# gdf["centroid"].plot(ax=ax, color="black")
 
 
 uniqstops = set()
@@ -23,10 +28,10 @@ for stop in stops:
 	uniqstops.add(stop.name)
 
 
-stop_pts = [Point((p.lat, p.long)) for p in uniq_s]
+stop_pts = [Point((p.long, p.lat)) for p in uniq_s]
 
 for pt in stop_pts:
 	gpt = gpd.GeoSeries(pt)
-	# gpt.plot(ax=ax)
-
+	gpt.plot(ax=ax)
+	plt.draw()
 plt.show()
