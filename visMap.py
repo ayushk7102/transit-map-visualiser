@@ -1,14 +1,18 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from shapely.geometry import Point, Polygon, LineString
+import matplotlib.colors as mcolors
+import random
 
 from readGTFS import *
 
-stops, routes, trips, stoptimes = read_data('nyc')
+city = 'barcelona'
+stops, routes, trips, stoptimes = read_data(city)
 
 # path_to_data = gpd.datasets.get_path("naturalearth_lowres")
 # print(gpd.datasets.available)
-gdf = gpd.read_file('Borough Boundaries.geojson')
+gdf = gpd.read_file(city+'.geojson')
+plt.rcParams["figure.figsize"] = (20,20)
 # print(gdf)
 
 # exit()
@@ -33,10 +37,10 @@ for stop in stops:
 
 stop_pts = [Point((p.long, p.lat)) for p in uniq_s]
 
-for pt in stop_pts:
-	gpt = gpd.GeoSeries(pt)
-	gpt.plot(ax=ax, markersize=6,color='black')
-	plt.draw()
+# for pt in stop_pts:
+# 	gpt = gpd.GeoSeries(pt)
+	# gpt.plot(ax=ax, markersize=6,color='black')
+	# plt.draw()
 # plt.show()
 
 
@@ -76,6 +80,9 @@ for rt_k in route_trips.keys():
 	trip_0 = route_trips[rt_k][0]
 	route_stops[rt_k] = trip_stops[trip_0].stops
 
+colors = [a for a in mcolors.CSS4_COLORS]
+
+random.shuffle(colors)
 
 ni = 0
 n = len(route_stops)
@@ -90,11 +97,12 @@ for k in route_stops.keys():
 			print("Stop {0}/{1}".format(i, nstops) , '\t',stops_loc_dict[rt_stps[i]],'--->',stops_loc_dict[rt_stps[i+1]])
 			subway_link = LineString([stops_loc_dict[rt_stps[i]], stops_loc_dict[rt_stps[i+1]]])
 			subway_link_gpd = gpd.GeoSeries(subway_link)
-			subway_link_gpd.plot(ax=ax, color='red')
+			subway_link_gpd.plot(ax=ax, color=colors[ni])
 			plt.draw()
 			# plt.pause(0.001)
 
 		except KeyError:
 			continue
 	ni+=1
+
 plt.show()

@@ -131,13 +131,13 @@ def read_data(city_name):
             stoptimes.append(stop_time(s['trip_id'], s['stop_id'], s['arrival_time'], s['departure_time'], s['stop_sequence']))
         print('Loaded stoptimes.')
         
-        with open(r"stoptimes_list.pickle", "wb") as output_file:
+        with open(r"{}".format(city_name)+r"_stoptimes_list.pickle", "wb") as output_file:
             pickle.dump(stoptimes, output_file)
 
 
     else:
         stoptimes = []
-        with open(r"stoptimes_list.pickle", "rb") as input_file:
+        with open(r"{}".format(city_name) + r"_stoptimes_list.pickle", "rb") as input_file:
             stoptimes = pickle.load(input_file)
             print('Loaded stoptimes from cache.')
 
