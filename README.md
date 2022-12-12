@@ -14,11 +14,11 @@ The result is a visualisation of the spread and structure of a city's transit ne
 
 
 
-eg: NYC Subway transit map (generated from nyc_gtfs.zip and a blank geoJSON file of NYC)
+eg: NYC Subway transit map (generated from nyc_gtfs.zip and a blank geoJSON file of NYC). Dots represent stations.
 
 ![nyc_subway](https://user-images.githubusercontent.com/65803868/206926321-57299459-2eb1-403a-aa2f-09142eb6c6aa.png)
 
 
 
-Transports Metropolitans de Barcelona (TMB) transit map, showing metro and bus lines. The routes spread beyond the city boundaries (as per barcelona.geoJSON)
+Transports Metropolitans de Barcelona (TMB) transit map, showing metro and bus lines. The routes spread beyond the city boundaries (as per barcelona.geoJSON).
 ![barcelona](https://user-images.githubusercontent.com/65803868/206997180-e6fc474e-76d5-4efa-a685-3da207101ffa.png)
