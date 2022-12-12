@@ -7,10 +7,11 @@ In the context of public transit system, a **timetable** represents bus/train sc
 The most common way of representing timetable information is [General Transit Feed Specification (GTFS) reference guide](https://developers.google.com/transit/gtfs/reference) maintained by Google.
 
 ## Map generation
-This script parses the GTFS data for a given city transit service (eg: New York Subway), tracking stations and their lat/long coordinates. It then draws out discrete routes (each one as a sequence of stops) on a blank shapefile of the given city.
+This script parses the GTFS data for a given city transit service (eg: New York Subway), tracking stations and their lat/long coordinates. It then draws out discrete routes (each one as a sequence of stops) on a blank shapefile or geoJSON of the given city, acquired via an open source repository such as those on the city's public access site (eg: NYC Open Data), [India-Maps on GitHub](https://github.com/mickeykedia/India-Maps), or GIS databases.
 
 The result is a visualisation of the spread and structure of a city's transit network, generated from GTFS.
-
+ 
+GTFS data is pulled from public transit information repositories including [TransitFeeds](https://transitfeeds.com) and [The Mobility Database](https://database.mobilitydata.org/#h.iqo2575mk6q).
 
 
 
