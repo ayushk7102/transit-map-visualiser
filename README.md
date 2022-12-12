@@ -27,8 +27,6 @@ GTFS data is pulled from public transit information repositories including [Tran
 
 
 3. Delhi DIMTS bus transit map (generated from public GTFS data compiled by [Open Transit Data](https://otd.delhi.gov.in/), IIIT Delhi) 
-![delhi_bus](https://user-images.githubusercontent.com/65803868/207040824-6f9b9d3e-f122-43b9-ae51-9f0f09cda6b1.png)
 
-
-
+![delhi_bus](https://user-images.githubusercontent.com/65803868/207043620-a315ae3b-72c2-4800-bd6b-949c7cc96ffe.png)
 
