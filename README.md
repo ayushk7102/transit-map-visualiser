@@ -20,5 +20,5 @@ eg: NYC Subway transit map (generated from nyc_gtfs.zip and a blank geoJSON file
 
 
 
-Transports Metropolitans de Barcelona (TMB) transit map, showing the spread of metro and bus lines
+Transports Metropolitans de Barcelona (TMB) transit map, showing metro and bus lines. The routes spread beyond the city boundaries (as per barcelona.geoJSON)
 ![barcelona](https://user-images.githubusercontent.com/65803868/206997180-e6fc474e-76d5-4efa-a685-3da207101ffa.png)
