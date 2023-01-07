@@ -1,5 +1,5 @@
 # transit-map-visualiser
-Generate visualisations of **subway** and other **rapid transit maps** using Shapely, GeoPandas, and public transit timetable (GTFS) data by Google.
+Generate visualisations of **subway** and other **rapid transit maps** using Shapely, GeoPandas, and public transit timetable data by Google.
 
 In the context of public transit system, a **timetable** represents bus/train schedules and contains information related to a transit network and the movement of vehicles on routes. 
 
