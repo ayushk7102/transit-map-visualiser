@@ -137,7 +137,7 @@ def read_data(city_name):
 
     else:
         stoptimes = []
-        with open(r"{}".format(city_name) + r"_stoptimes_list.pickle", "rb") as input_file:
+        with open(r"pickles/{}".format(city_name) + r"_stoptimes_list.pickle", "rb") as input_file:
             stoptimes = pickle.load(input_file)
             print('Loaded stoptimes from cache.')
 

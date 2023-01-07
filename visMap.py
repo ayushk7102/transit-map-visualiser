@@ -6,20 +6,14 @@ import random
 
 from readGTFS import *
 
-city = 'barcelona'
+filepath = 'geojson/'
+city = 'nyc' #'barcelona'
 stops, routes, trips, stoptimes = read_data(city)
 
-# path_to_data = gpd.datasets.get_path("naturalearth_lowres")
-# print(gpd.datasets.available)
-gdf = gpd.read_file(city+'.geojson')
-plt.rcParams["figure.figsize"] = (20,20)
-# print(gdf)
+gdf = gpd.read_file(filepath + city + '.geojson')
 
-# exit()
-# gdf["area"] = gdf.area
-# gdf["centroid"] = gdf.centroid
-# gdf.plot("area", legend=True)
-# ax = gdf["geometry"].plot()
+plt.rcParams["figure.figsize"] = (20,20)
+
 ax=gdf.plot()
 # gdf["centroid"].plot(ax=ax, color="black")
 
